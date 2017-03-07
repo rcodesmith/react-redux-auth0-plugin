@@ -1,0 +1,71 @@
+{
+  "name": "react-redux-auth0-plugin",
+  "version": "0.8.0",
+  "description": "Auth0 plugin for react-boilerplate-framework",
+  "main": "dist/index.js",
+  "private": false,
+  "scripts": {
+    "build": "babel src -d dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rcodesmith/react-redux-auth0-plugin.git"
+  },
+  "author": "Ron Smith",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rcodesmith/react-redux-auth0-plugin/issues"
+  },
+  "homepage": "https://github.com/rcodesmith/react-redux-auth0-plugin#readme",
+  "dependencies": {
+    "auth0-lock": "^10.12.2",
+    "immutable": "^3.8.1",
+    "react": "^15.4.1",
+    "react-redux": "^5.0.3",
+    "react-router-redux": "^4.0.8",
+    "redux": "^3.6.0",
+    "redux-saga": "^0.14.3",
+    "reselect": "^2.5.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-plugin-transform-react-constant-elements": "^6.23.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.3.2",
+    "babel-preset-latest": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "flow-bin": "^0.40.0"
+  },
+  "babel": {
+    "presets": [
+      [
+        "latest",
+        {
+          "es2015": {
+            "modules": false
+          }
+        }
+      ],
+      "react",
+      "stage-0"
+    ],
+    "env": {
+      "production": {
+        "only": [
+          "app"
+        ],
+        "plugins": [
+          "transform-react-remove-prop-types",
+          "transform-react-constant-elements",
+          "transform-react-inline-elements"
+        ]
+      },
+      "test": {
+        "plugins": [
+          "transform-es2015-modules-commonjs",
+          "dynamic-import-node"
+        ]
+      }
+    }
+  }
+}

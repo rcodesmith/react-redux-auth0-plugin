@@ -1,0 +1,9 @@
+[libs]
+flow-typed/npm/
+
+[include]
+src/
+
+[options]
+module.system=node
+suppress_comment=\\(.\\|\n\\)*\\$FlowIssue
