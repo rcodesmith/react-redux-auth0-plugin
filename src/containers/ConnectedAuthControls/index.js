@@ -20,6 +20,10 @@ type Props = {
   profile: any
 };
 
+/**
+ * Sample connected auth controls component.
+ * Displays logged in user's nickname, and supports login & logout.
+ */
 export class ConnectedAuthControls extends React.Component {
 
   props: Props;

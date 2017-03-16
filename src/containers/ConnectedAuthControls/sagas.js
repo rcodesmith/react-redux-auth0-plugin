@@ -10,9 +10,9 @@ import { LOGIN, LOGOUT, LOGIN_SUCCESS, LOGIN_FAIL } from './constants';
 let lock = undefined;
 
 export type Auth0LoginConfig = {
-  clientId: string,
-  domain: string,
-  redirectUrl: string,
+  clientId: string,     // Client ID assigned from Auth0
+  domain: string,       // Domain assigned from Auth0
+  redirectUrl: string,  // URL to redirect to from Auth0 after login
 };
 
 let auth0Domain = undefined;
@@ -29,11 +29,10 @@ export function initAuth0Lock(config: Auth0LoginConfig) {
   });
 
   lock.on('authenticated', (authResult) => {
-    //log.info({authResult}, "authenticated");
-
+    // Verify the previously stored nonce against what is passed in from Auth0 in the redirect
     const storedRedirNonce = localStorage.getItem('login.redirNonce');
     if(storedRedirNonce != authResult.state) {
-      //log.error(`Received nonce ${authResult.state} does not match stored ${storedRedirNonce}.  Ignoring auth result`);
+      console.log(`Received nonce ${authResult.state} does not match stored ${storedRedirNonce}.  Ignoring auth result`);
       return;
     }
 
@@ -105,6 +104,10 @@ function getUserProfile(accessToken) {
 
 /**
  * Login result saga.
+ * This saga checks local storage for the access token and id token, set when a redirect from
+ * Auth0 occurs after a successful login.
+ * If found, this saga processes the login result (processLoginResult saga).
+ * If not found, the saga will retry N times with a delay.
  */
 function* loginResultSaga() : Generator<any, void, void> {
   //log.info("loginResult saga started");
@@ -121,6 +124,13 @@ function* loginResultSaga() : Generator<any, void, void> {
   }
 }
 
+/**
+ * Process the login result, issuing the LOGIN_SUCCESS or LOGIN_FAIL actions
+ * Finally, await for and process a LOGOUT action.
+ *
+ * @param accessToken
+ * @param idToken
+ */
 function* processLoginResult(accessToken, idToken) : Generator<any, void, void> {
   const nextLoc = localStorage.getItem('login.nextLoc');
 

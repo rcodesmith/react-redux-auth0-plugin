@@ -1,8 +1,6 @@
 
 import React from 'react'
 
-// import { Button } from 'react-bootstrap'
-
 type Props = {
   onLogin: Function,
   onLogout: Function,
@@ -10,6 +8,11 @@ type Props = {
   profile: any // See https://auth0.com/docs/user-profile/normalized
 };
 
+/**
+ * Dumb sample auth controls component that:
+ * * Displays the current logged in user's nickname
+ * * Presents either a login or logout button based on logged in state
+ */
 export default class AuthControls extends React.Component {
 
   props: Props;

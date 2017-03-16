@@ -6,8 +6,14 @@ import { initAuth0Lock } from './sagas';
 
 import type { Auth0LoginConfig } from './sagas';
 
+import reducer from './reducer';
+
 export function init(config: Auth0LoginConfig) {
   initAuth0Lock(config);
+}
+
+export function postAppInitHook(config: Auth0LoginConfig, app) {
+
 }
 
 /**
@@ -15,6 +21,20 @@ export function init(config: Auth0LoginConfig) {
  */
 export function getGlobalSagaModules(config) {
   return [import('./sagas')];
+}
+
+/**
+ * Get reducers that should be included in every route
+ *
+ * TODO: Make state container name less generic
+ *
+ * @param config
+ * @returns {{login: authControlsReducer}}
+ */
+export function getGlobalReducers(config) {
+  return {
+      login: reducer
+  }
 }
 
 /**
