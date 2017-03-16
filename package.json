@@ -1,6 +1,6 @@
 {
   "name": "react-redux-auth0-plugin",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Auth0 plugin for react-boilerplate-framework",
   "main": "dist/index.js",
   "private": false,
